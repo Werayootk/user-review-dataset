@@ -12,12 +12,22 @@ const writeFileAsync = promisify(fs.writeFile);
 //   932493382, 514561561, 367003839, 324684580, 284882215
 // ];
 
+// const idList = [
+//   368677368,
+//   401626263,
+//   288429040,
+//   1064216828,
+//   543186831
+// ]
+
+
+// let appIdList = [];
 // for (const id of idList) {
 //   store
 //     .app({ id: id })
 //     .then(async (data) => {
 //       appIdList.push(data.appId);
-//       console.log(appIdList);
+//       console.log(appIdList, id);
 //     })
 //     .catch((err) => {
 //       console.log("id", id);
@@ -53,7 +63,12 @@ const appIdList = [
   'com.google.Maps',
   'com.spotify.client',
   'com.booking.BookingApp',
-  'uk.gov.hmrc.TaxCalc'
+  'uk.gov.hmrc.TaxCalc',
+  'com.linkedin.LinkedIn',
+  'com.airbnb.app',
+  'com.miniclip.8ballpoolmult',
+  'com.ubercab.UberClient',
+  'com.reddit.Reddit'
 ];
 
 async function fetchAndAppendReviews(page, id) {
