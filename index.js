@@ -3,11 +3,62 @@ const fs = require('fs');
 const { promisify } = require('util');
 const writeFileAsync = promisify(fs.writeFile);
 
-// store.app({ id: 284882215 }).then(console.log).catch(console.log);
+//List appId
+// const idList = [
+//   1641486558, 983156458, 6446901002, 6448311069, 1060683933, 1113153706,
+//   632064380, 6450299650, 310633997, 585027354, 835599320, 284815942,
+//   1500855883, 1223471316, 686449807, 1629050566, 422689480, 951937596,
+//   878577184, 389801252, 544007664, 288429040, 1052238659,
+//   932493382, 514561561, 367003839, 324684580, 284882215
+// ];
 
-async function fetchAndAppendReviews(page) {
+// for (const id of idList) {
+//   store
+//     .app({ id: id })
+//     .then(async (data) => {
+//       appIdList.push(data.appId);
+//       console.log(appIdList);
+//     })
+//     .catch((err) => {
+//       console.log("id", id);
+//       console.log(err)
+//     });
+// }
+
+const appIdList = [
+  'com.einnovation.temu',
+  'com.burbn.barcelona',
+  'com.openai.chat',
+  'com.microsoft.azureauthenticator',
+  'com.burbn.instagram',
+  'net.whatsapp.WhatsApp',
+  'com.moonsted.TGTG',
+  'uk.co.santander.oeuk.live',
+  'com.microsoft.skype.teams',
+  'com.google.GoogleMobile',
+  'uk.gov.digital-identity',
+  'com.zhiliaoapp.musically',
+  'com.microsoft.Office.Outlook',
+  'ph.telegra.Telegraph',
+  'com.jadedlabs.arrive',
+  'zzkko.com.ZZKKO',
+  'com.google.ios.youtube',
+  'com.google.Gmail',
+  'com.lemon.lvoverseas',
+  'lt.manodrabuziai.fr',
+  'io.b2a.BankProd',
+  'com.linkedin.LinkedIn',
+  'com.revolut.revolut',
+  'com.facebook.Facebook',
+  'com.google.Maps',
+  'com.spotify.client',
+  'com.booking.BookingApp',
+  'uk.gov.hmrc.TaxCalc'
+];
+
+async function fetchAndAppendReviews(page, id) {
   try {
-    const appId = 'com.facebook.Facebook'
+    const appId = id
     const res = await store.reviews({
       appId: appId,
       sort: store.sort.HELPFUL,
@@ -23,10 +74,12 @@ async function fetchAndAppendReviews(page) {
 }
 
 async function processPages() {
-  // Loop through pages 1 to 10
-  for (let page = 1; page <= 10; page++) {
-      await fetchAndAppendReviews(page);
-  }
+  appIdList.forEach( async (appId) => {
+    // Loop through pages 1 to 10
+    for (let page = 1; page <= 10; page++) {
+        await fetchAndAppendReviews(page, appId);
+    }
+  })
 }
 
 // Call the async function
