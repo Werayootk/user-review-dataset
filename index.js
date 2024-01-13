@@ -9,26 +9,25 @@ const writeFileAsync = promisify(fs.writeFile);
 //   1641486558, 983156458, 6446901002, 6448311069, 1060683933, 1113153706,
 //   632064380, 6450299650, 310633997, 585027354, 835599320, 284815942,
 //   1500855883, 1223471316, 686449807, 1629050566, 422689480, 951937596,
-//   878577184, 389801252, 544007664, 288429040, 1052238659,
-//   932493382, 514561561, 367003839, 324684580, 284882215
+//   878577184, 389801252, 544007664, 288429040, 1052238659, 368677368,
+//   932493382, 514561561, 367003839, 324684580, 284882215, 401626263, 288429040
+//   ,1064216828 ,543186831
 // ];
 
-// const idList = [
-//   368677368,
-//   401626263,
-//   288429040,
-//   1064216828,
-//   543186831
-// ]
+let appIdList = [];
+// let objAppID = {
+//   appId: '',
+//   id: ''
+// }
 
-
-// let appIdList = [];
 // for (const id of idList) {
 //   store
 //     .app({ id: id })
 //     .then(async (data) => {
-//       appIdList.push(data.appId);
-//       console.log(appIdList, id);
+//       objAppID.appId = data.appId;
+//       objAppID.id = id;
+//       appIdList.push(objAppID);
+//       console.log(objAppID);
 //     })
 //     .catch((err) => {
 //       console.log("id", id);
@@ -36,40 +35,40 @@ const writeFileAsync = promisify(fs.writeFile);
 //     });
 // }
 
-const appIdList = [
-  'com.einnovation.temu',
-  'com.burbn.barcelona',
-  'com.openai.chat',
-  'com.microsoft.azureauthenticator',
-  'com.burbn.instagram',
-  'net.whatsapp.WhatsApp',
-  'com.moonsted.TGTG',
-  'uk.co.santander.oeuk.live',
-  'com.microsoft.skype.teams',
-  'com.google.GoogleMobile',
-  'uk.gov.digital-identity',
-  'com.zhiliaoapp.musically',
-  'com.microsoft.Office.Outlook',
-  'ph.telegra.Telegraph',
-  'com.jadedlabs.arrive',
-  'zzkko.com.ZZKKO',
-  'com.google.ios.youtube',
-  'com.google.Gmail',
-  'com.lemon.lvoverseas',
-  'lt.manodrabuziai.fr',
-  'io.b2a.BankProd',
-  'com.linkedin.LinkedIn',
-  'com.revolut.revolut',
-  'com.facebook.Facebook',
-  'com.google.Maps',
-  'com.spotify.client',
-  'com.booking.BookingApp',
-  'uk.gov.hmrc.TaxCalc',
-  'com.linkedin.LinkedIn',
-  'com.airbnb.app',
-  'com.miniclip.8ballpoolmult',
-  'com.ubercab.UberClient',
-  'com.reddit.Reddit'
+appIdList = [
+  { appId: 'com.einnovation.temu', id: 1641486558 },
+  { appId: 'com.burbn.barcelona', id: 6446901002 },
+  { appId: 'com.microsoft.azureauthenticator', id: 983156458 },
+  { appId: 'com.openai.chat', id: 6448311069 },
+  { appId: 'com.moonsted.TGTG', id: 1060683933 },
+  { appId: 'com.microsoft.skype.teams', id: 1113153706 },
+  { appId: 'uk.co.santander.oeuk.live', id: 6450299650 },
+  { appId: 'lt.manodrabuziai.fr', id: 632064380 },
+  { appId: 'com.google.Maps', id: 585027354 },
+  { appId: 'net.whatsapp.WhatsApp', id: 310633997 },
+  { appId: 'com.google.GoogleMobile', id: 284815942 },
+  { appId: 'com.zhiliaoapp.musically', id: 835599320 },
+  { appId: 'ph.telegra.Telegraph', id: 686449807 },
+  { appId: 'com.jadedlabs.arrive', id: 1223471316 },
+  { appId: 'com.lemon.lvoverseas', id: 1500855883 },
+  { appId: 'uk.gov.digital-identity', id: 1629050566 },
+  { appId: 'com.microsoft.Office.Outlook', id: 951937596 },
+  { appId: 'com.google.Gmail', id: 422689480 },
+  { appId: 'zzkko.com.ZZKKO', id: 878577184 },
+  { appId: 'uk.gov.hmrc.TaxCalc', id: 514561561 },
+  { appId: 'com.burbn.instagram', id: 389801252 },
+  { appId: 'com.revolut.revolut', id: 932493382 },
+  { appId: 'com.facebook.Facebook', id: 284882215 },
+  { appId: 'com.linkedin.LinkedIn', id: 288429040 },
+  { appId: 'io.b2a.BankProd', id: 1052238659 },
+  { appId: 'com.google.ios.youtube', id: 544007664 },
+  { appId: 'com.linkedin.LinkedIn', id: 288429040 },
+  { appId: 'com.booking.BookingApp', id: 367003839 },
+  { appId: 'com.spotify.client', id: 324684580 },
+  { appId: 'com.ubercab.UberClient', id: 368677368 },
+  { appId: 'com.miniclip.8ballpoolmult', id: 543186831 },
+  { appId: 'com.reddit.Reddit', id: 1064216828 },
+  { appId: 'com.airbnb.app', id: 401626263 }
 ];
 
 // async function fetchAndAppendReviews(page, id) {
@@ -90,9 +89,9 @@ const appIdList = [
 // }
 // }
 
-async function fetchAndAppendReviews(page, id) {
+async function fetchAndAppendReviews(page, appIdList) {
   try {
-    const appId = id;
+    const appId = appIdList.appId;
     const res = await store.reviews({
       appId: appId,
       sort: store.sort.HELPFUL,
@@ -103,7 +102,7 @@ async function fetchAndAppendReviews(page, id) {
     const csvContent = papaparse.unparse(res);
 
     // Write CSV content to a file
-    await writeFileAsync(`./out/output_page_${appId}_${page}.csv`, csvContent, 'utf8');
+    await writeFileAsync(`./out/${appIdList.appId}_${appIdList.id}_${page}.csv`, csvContent, 'utf8');
     console.log(`CSV file for page ${page} has been saved.`);
 
   } catch (error) {
@@ -112,10 +111,10 @@ async function fetchAndAppendReviews(page, id) {
 }
 
 async function processPages() {
-  appIdList.forEach( async (appId) => {
+  appIdList.forEach( async (appIdList) => {
     // Loop through pages 1 to 10
     for (let page = 1; page <= 10; page++) {
-        await fetchAndAppendReviews(page, appId);
+        await fetchAndAppendReviews(page, appIdList);
     }
   })
 }
