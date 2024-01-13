@@ -13,6 +13,7 @@
   "author": "Werayoot Kunphai & Jiraporn Ramjul",
   "license": "ISC",
   "dependencies": {
-    "app-store-scraper": "^0.18.0"
+    "app-store-scraper": "^0.18.0",
+    "papaparse": "^5.4.1"
   }
 }
