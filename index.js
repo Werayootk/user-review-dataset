@@ -75,23 +75,23 @@ appIdList = [
   { appId: 'com.toyopagroup.picaboo', id: 447188370 }
 ];
 
-async function fetchAndAppendReviews(page, id) {
-  try {
-    const appId = id
-    const res = await store.reviews({
-      appId: appId,
-      sort: store.sort.HELPFUL,
-      page: page
-    });
+// async function fetchAndAppendReviews(page, id) {
+//   try {
+//     const appId = id
+//     const res = await store.reviews({
+//       appId: appId,
+//       sort: store.sort.HELPFUL,
+//       page: page
+//     });
 
-    const jsonContent = JSON.stringify(res);
-    await writeFileAsync(`./out/output_page_${appId}_${page}.json`, jsonContent, 'utf8');
-    console.log(`JSON file for page ${page} has been saved.`);
+//     const jsonContent = JSON.stringify(res);
+//     await writeFileAsync(`./out/output_page_${appId}_${page}.json`, jsonContent, 'utf8');
+//     console.log(`JSON file for page ${page} has been saved.`);
     
-} catch (error) {
-    console.error(`Error fetching or writing reviews for page ${page}:`, error);
-}
-}
+// } catch (error) {
+//     console.error(`Error fetching or writing reviews for page ${page}:`, error);
+// }
+// }
 
 async function fetchAndAppendReviews(page, appIdList) {
   try {
