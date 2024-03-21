@@ -98,7 +98,7 @@ async function fetchAndAppendReviews(page, appIdList) {
     const appId = appIdList.appId;
     const res = await store.reviews({
       appId: appId,
-      sort: store.sort.HELPFUL,
+      sort: store.sort.RECENT,
       page: page
     });
 
