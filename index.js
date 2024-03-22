@@ -101,10 +101,8 @@ async function fetchAndAppendReviews(page, appIdList) {
       sort: store.sort.RECENT,
       page: page
     });
-
     // Convert reviews data to CSV format
-    const csvContent = papaparse.unparse(res);
-
+    const csvContent = await papaparse.unparse(res);
     // Write CSV content to a file
     await writeFileAsync(`./out/${appIdList.appId}_${appIdList.id}_${page}.csv`, csvContent, 'utf8');
     console.log(`CSV file for page ${page} has been saved.`);
