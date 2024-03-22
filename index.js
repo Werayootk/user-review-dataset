@@ -2,6 +2,7 @@ var store = require('app-store-scraper');
 const fs = require('fs');
 const papaparse = require('papaparse');
 const { promisify } = require('util');
+
 const writeFileAsync = promisify(fs.writeFile);
 
 //List appId
@@ -15,26 +16,27 @@ const idList = [
 ];
 
 let appIdList = [];
+/*
+let objAppID = {
+  appId: '',
+  id: ''
+}
 
-// let objAppID = {
-//   appId: '',
-//   id: ''
-// }
-
-// for (const id of idList) {
-//   store
-//     .app({ id: id })
-//     .then(async (data) => {
-//       objAppID.appId = data.appId;
-//       objAppID.id = id;
-//       appIdList.push(objAppID);
-//       console.log(objAppID);
-//     })
-//     .catch((err) => {
-//       console.log("id", id);
-//       console.log(err)
-//     });
-// }
+for (const id of idList) {
+  store
+    .app({ id: id })
+    .then(async (data) => {
+      objAppID.appId = data.appId;
+      objAppID.id = id;
+      appIdList.push(objAppID);
+      console.log(objAppID);
+    })
+    .catch((err) => {
+      console.log("id", id);
+      console.log(err)
+    });
+}
+*/
 
 appIdList = [
   { appId: 'com.einnovation.temu', id: 1641486558 },
@@ -102,14 +104,19 @@ async function fetchAndAppendReviews(page, appIdList) {
       page: page
     });
     // Convert reviews data to CSV format
-    const csvContent = await papaparse.unparse(res);
+    // const csvContent = await papaparse.unparse(res);
+    const csvContent = convertToCSV(res);
     // Write CSV content to a file
     await writeFileAsync(`./out/${appIdList.appId}_${appIdList.id}_${page}.csv`, csvContent, 'utf8');
     console.log(`CSV file for page ${page} has been saved.`);
-
   } catch (error) {
     console.error(`Error fetching or writing reviews for page ${page}:`, error);
   }
+}
+
+function convertToCSV(data) {
+  // Convert reviews data to CSV format
+  return papaparse.unparse(data);
 }
 
 async function processPages() {
