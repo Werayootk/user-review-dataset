@@ -77,53 +77,31 @@ appIdList = [
   { appId: 'com.toyopagroup.picaboo', id: 447188370 }
 ];
 
-// async function fetchAndAppendReviews(page, id) {
-//   try {
-//     const appId = id
-//     const res = await store.reviews({
-//       appId: appId,
-//       sort: store.sort.HELPFUL,
-//       page: page
-//     });
-
-//     const jsonContent = JSON.stringify(res);
-//     await writeFileAsync(`./out/output_page_${appId}_${page}.json`, jsonContent, 'utf8');
-//     console.log(`JSON file for page ${page} has been saved.`);
-    
-// } catch (error) {
-//     console.error(`Error fetching or writing reviews for page ${page}:`, error);
-// }
-// }
-
-async function fetchAndAppendReviews(page, appIdList) {
+function fetchAndAppendReviews(page, appIdList) {
   try {
     const appId = appIdList.appId;
-    const res = await store.reviews({
+    const res = store.reviews({
       appId: appId,
       sort: store.sort.RECENT,
       page: page
     });
+
+    console.log("res", res);
+    
     // Convert reviews data to CSV format
     // const csvContent = await papaparse.unparse(res);
-    const csvContent = convertToCSV(res);
     // Write CSV content to a file
-    await writeFileAsync(`./out/${appIdList.appId}_${appIdList.id}_${page}.csv`, csvContent, 'utf8');
-    console.log(`CSV file for page ${page} has been saved.`);
+    // await writeFileAsync(`./out/${appIdList.appId}_${appIdList.id}_${page}.csv`, csvContent, 'utf8');
+    // console.log(`CSV file for page ${page} has been saved.`);
   } catch (error) {
     console.error(`Error fetching or writing reviews for page ${page}:`, error);
   }
 }
-
-function convertToCSV(data) {
-  // Convert reviews data to CSV format
-  return papaparse.unparse(data);
-}
-
-async function processPages() {
-  appIdList.forEach( async (appIdList) => {
+function processPages() {
+  appIdList.forEach((appIdList) => {
     // Loop through pages 1 to 10
     for (let page = 1; page <= 10; page++) {
-        await fetchAndAppendReviews(page, appIdList);
+      fetchAndAppendReviews(page, appIdList);
     }
   })
 }
