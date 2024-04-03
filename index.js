@@ -100,7 +100,7 @@ function processPages() {
       if (res.length > 0) {
         let content = [];
         res.forEach(element => {
-          if (element.score == 5) {
+          if (element.score > 2) {
             content.push(element);
           }
         });
