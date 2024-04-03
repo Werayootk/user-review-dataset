@@ -106,7 +106,7 @@ function processPages() {
         });
         // console.log("csvContent", csvContent);
         // Write CSV content to a file
-        let csvContent = papaparse.unparse(content);
+        let csvContent = await papaparse.unparse(content);
         writeFileAsync(`./out/${appIdList.appId}_${appIdList.id}_${page}.csv`, csvContent, 'utf8');
         console.log(`CSV file for page ${page} has been saved.`);
       } else {
