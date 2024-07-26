@@ -63,7 +63,7 @@ function processPages() {
     // Loop through pages 1 to 10
     for (let page = 1; page <= 10; page++) {
       const res = await fetchAndAppendReviews(page, appIdList);
-      if (res.length > 0) {
+      if (res?.length > 0) {
         let content = [];
         res.forEach(element => {
           if (element.score > 2) {
