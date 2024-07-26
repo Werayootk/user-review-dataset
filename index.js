@@ -54,7 +54,7 @@ function processPages() {
       if (res?.length > 0) {
         let content = [];
         res.forEach(element => {
-          if (element.score > 2) {
+          if (element.score > 0) {
             content.push(element);
           }
         });
